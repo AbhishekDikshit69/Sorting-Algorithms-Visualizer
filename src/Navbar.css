@@ -1,0 +1,45 @@
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 6vh;
+    background-color: #34495e;
+    
+}
+h2{
+    color: white;
+}
+.sorting-buttons{
+    position: absolute;
+    margin-left: 30%;
+    align-items: center;
+    justify-content: center;
+    /* margin-top: -1px; */
+    width:40%;
+    
+}
+button{
+    margin:4px;
+    width:18%;
+    color:white;
+    background: transparent;
+    border-color: transparent;
+    cursor: pointer;
+    font-size: 15px;
+}
+.genbutton{
+    position: absolute;
+    display: inline-block;
+    width:210px;
+    height:5%;
+    margin-top: 1px;
+    margin-right: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: green;
+    border-radius: 8px;
+    right: 0;
+}
+.slider{
+    width:200px;
+}

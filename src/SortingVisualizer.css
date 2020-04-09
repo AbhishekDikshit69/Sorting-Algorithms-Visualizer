@@ -1,0 +1,19 @@
+.array-container {
+    position: absolute; 
+    height:85vh;
+    left:140px;  
+    margin-top: 40px;
+}
+  
+  .array-bar {
+    width: 2px;
+    display: inline-block;
+    margin: 0 1px;
+  }
+  .normal{
+    color:black
+  }
+  .root{
+    height:100vh;
+    /* background-color: grey */
+  }
