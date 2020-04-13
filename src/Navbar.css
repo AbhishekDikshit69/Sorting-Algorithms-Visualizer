@@ -11,7 +11,7 @@ h2{
 }
 .sorting-buttons{
     position: absolute;
-    margin-left: 30%;
+    margin-left: 22%;
     align-items: center;
     justify-content: center;
     /* margin-top: -1px; */
@@ -28,9 +28,11 @@ button{
     font-size: 15px;
 }
 .genbutton{
+    align-content: center;
+    justify-content: center;
     position: absolute;
-    display: inline-block;
-    width:210px;
+    display: flex;
+    width:220px;
     height:5%;
     margin-top: 1px;
     margin-right: 10px;
@@ -41,5 +43,21 @@ button{
     right: 0;
 }
 .slider{
+    display:inline-block;
+    margin-left: 49%;
     width:200px;
+    
+}
+.rc-slider-track{
+    background-color: green;
+}
+
+.rc-slider-handle,
+.rc-slider-handle:active,
+.rc-slider-handle:hover,
+.rc-slider-handle:focus{
+    background-color: green;
+    outline:green;
+    border:2px solid green;
+    box-shadow: green;
 }

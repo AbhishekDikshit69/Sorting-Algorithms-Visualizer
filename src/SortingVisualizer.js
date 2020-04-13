@@ -18,24 +18,33 @@ export default class SortingVisualizer extends React.Component {
       array: [],
       min:5,
       max:730,
-      length:310,
+      length:300,
       completed:false,
+      action:false,
+      width:2,
+      currwidth:2
     };
   }
 
   componentDidMount() {
     this.resetArray();
   }
-
+  
+  handleChange(currlength){
+    let currwidth=(300/currlength)*2;
+    this.setState({length:currlength,currwidth});
+  }
   resetArray() {
+    this.setState({width:this.state.currwidth});
     const array = [];
     for (let i = 0; i < this.state.length; i++) {
       array.push(randomIntFromInterval(this.state.min, this.state.max));
     }
-    this.setState({array:array,completed:false});
+    this.setState({array:array,completed:false,action:false});
   
   }
   generateAnimation(animations,ANIMATION_SPEED_MS){
+    this.setState({action:true});
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName('array-bar');
       const isColorChange = i % 3 !== 2;
@@ -53,6 +62,9 @@ export default class SortingVisualizer extends React.Component {
           const [barOneIdx, newHeight] = animations[i];
           const barOneStyle = arrayBars[barOneIdx].style;
           barOneStyle.height = `${newHeight*100/this.state.max}%`;
+           if (i===animations.length-1){
+             this.setState({completed:true});
+           } 
         }, i * ANIMATION_SPEED_MS*2);
       }
     }
@@ -70,16 +82,16 @@ export default class SortingVisualizer extends React.Component {
 
   heapSort() {
     const animations=getHeapSortAnimations(this.state.array);
-    this.generateAnimation(animations,.4);
+    this.generateAnimation(animations,1);
   }
 
   bubbleSort() {
     const animations = getBubbleSortAnimations(this.state.array);
-    this.generateAnimation(animations,.3);
+    this.generateAnimation(animations,(300/this.state.length)*.2);
   }
   insertionSort(){
     const animations=getInsertionSortAnimations(this.state.array);
-    this.generateAnimation(animations,.4);
+    this.generateAnimation(animations,(300/this.state.length)*.2);
   }
 
   // NOTE: This method will only work if your sorting algorithms actually return
@@ -97,7 +109,14 @@ export default class SortingVisualizer extends React.Component {
       console.log(arraysAreEqual(javaScriptSortedArray, mergeSortedArray));
     }
   }
-
+  status(){
+    if(this.state.completed && this.state.action)
+      return <div className="action" style={{color: "green"}}>Sorting Complete!!!!</div>;
+      else if(this.state.action)
+        return <p class="saving action" style={{color:"#34495e"}}>Sorting in Progress<span>.</span><span>.</span><span>.</span></p>
+        ;
+      return ``;
+  }
   render() {
     const {array} = this.state;
 
@@ -107,7 +126,9 @@ export default class SortingVisualizer extends React.Component {
               bubbleSort={() => this.bubbleSort()}
                 quickSort={() => this.quickSort()}
                  heapSort={() => this.heapSort()}
-                  insertionSort={()=>this.insertionSort()}/>
+                  insertionSort={()=>this.insertionSort()}
+                  handleChange={this.handleChange.bind(this)}
+                  length={this.state.length}/>
             <div className="array-container">
             {array.map((value, idx) => (
           <div
@@ -116,8 +137,10 @@ export default class SortingVisualizer extends React.Component {
             style={{
               backgroundColor: PRIMARY_COLOR,
               height: `${value* 100/this.state.max}%`,
+              width:`${this.state.width}px`
             }}></div>
         ))}
+        <div>{this.status()}</div>
               </div>
             </div>
              
